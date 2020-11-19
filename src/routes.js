@@ -11,9 +11,9 @@ routes.get("/repositories", (_, response) => {
 
 routes.post("/repositories", (request, response) => {
     const { title, url, techs, likes = 0 } = request.body;
-    const data = { title, url, techs, likes };
     const id = uuid();
-    repositories.push({ id, ...data })
+    const data = { id, title, url, techs, likes };
+    repositories.push(data)
     const createdRepo = repositories.filter(repo => repo.id === id);
     return response.json(...createdRepo);
     // TODO
