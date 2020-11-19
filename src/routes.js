@@ -16,7 +16,6 @@ routes.post("/repositories", (request, response) => {
     repositories.push(data)
     const createdRepo = repositories.filter(repo => repo.id === id);
     return response.json(...createdRepo);
-    // TODO
 });
 
 routes.put("/repositories/:id", (request, response) => {
@@ -37,14 +36,12 @@ routes.put("/repositories/:id", (request, response) => {
 
 routes.delete("/repositories/:id", (request, response) => {
     const { id } = request.params;
-    const repository = repositories.filter(repo => repo.id === id)[0];
+    const repositoryIndex = repositories.findIndex(repo => repo.id === id);
 
-    if (!repository) return response.status(404).json({ error: 'Repository not found' })
+    if (repositoryIndex <= 0) return response.status(404).json({ error: 'Repository not found' })
 
-    const repositoryIndex = repositories.indexOf(repository);
     repositories.splice(repositoryIndex, 1);
     return response.json({ message: "Deleted" })
-    // TODO
 });
 
 routes.post("/repositories/:id/like", (request, response) => {
